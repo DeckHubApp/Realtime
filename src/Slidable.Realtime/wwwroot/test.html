@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+    <div id="log">
+        <ul id="messages"></ul>
+    </div>
+    <script src="signalr.js">
+        
+    </script>
+    <script>
+        let transportType = signalR.TransportType.WebSockets;
+        let logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
+        let connection = new signalR.HubConnection('/live', { transport: transportType, logger: logger });
+        
+        connection.onclose(e => {
+            if (e) {
+                appendLine('Connection closed with error: ' + e, 'red');
+            } else {
+                appendLine('Disconnected', 'green');
+            }
+        });
+        
+        connection.on('question', question => {
+            appendLine(JSON.stringify(question));
+        });
+        
+        connection.on('slideAvailable', slide => {
+            appendLine(JSON.stringify(slide));
+        });
+        
+        connection.start()
+            .then(() => connection.invoke('Join', 'mark/test'))
+            .catch(err => appendLine(err, 'red'));
+        
+
+        function appendLine(line, color) {
+            let child = document.createElement('li');
+            if (color) {
+                child.style.color = color;
+            }
+            child.innerText = line;
+            document.getElementById('messages').appendChild(child);
+        };
+    </script>
+</body>
+</html>

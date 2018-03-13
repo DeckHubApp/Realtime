@@ -23,7 +23,6 @@ namespace Slidable.Realtime
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IHostedService, RedisSubscriber>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var redisHost = Configuration.GetSection("Redis").GetValue<string>("Host");
@@ -34,6 +33,7 @@ namespace Slidable.Realtime
             }
 
             services.AddSingleton(_ => ConnectionMultiplexer.Connect($"{redisHost}:{redisPort}"));
+            services.AddSingleton<IHostedService, RedisSubscriber>();
 
             services.AddSignalR(o => { o.KeepAliveInterval = TimeSpan.FromSeconds(5); });
         }
@@ -45,7 +45,7 @@ namespace Slidable.Realtime
                 app.UseDeveloperExceptionPage();
             }
 
-            var pathBase = Configuration["PATH_BASE"];
+            var pathBase = Configuration["Runtime:PathBase"];
             if (!string.IsNullOrEmpty(pathBase))
             {
                 app.UsePathBase(pathBase);
@@ -53,7 +53,7 @@ namespace Slidable.Realtime
 
             app.UseStaticFiles();
 
-            app.UseSignalR(routes => { routes.MapHub<LiveHub>("live"); });
+            app.UseSignalR(routes => { routes.MapHub<LiveHub>("/live"); });
         }
     }
 }

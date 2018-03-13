@@ -16,6 +16,6 @@ namespace Slidable.Realtime
             SendQuestion(context, $"{question.Presenter}/{question.Slug}", question.From, question.Text);
 
         private static Task SendQuestion(this IHubContext<LiveHub> context, string groupName, string from, string question) =>
-            context.Clients.Group(groupName).SendAsync("slideAvailable", new {from, question});
+            context.Clients.Group(groupName).SendAsync("question", new {from, question});
     }
 }
