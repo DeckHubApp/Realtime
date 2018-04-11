@@ -1,0 +1,60 @@
+{
+  "@aspnet/signalr/browser": {
+    "version": "@aspnet",
+    "files": [
+      {
+        "file": "/dist/browser/signalr.js",
+        "cdn": "https://unpkg.com/@aspnet/signalr@1.0.0-preview1-update1/dist/browser/signalr.js",
+        "local": "wwwroot/lib/@aspnet/signalr/browser/signalr.js",
+        "integrity": "sha384-xshlYcRaTmxLn43S4dHOH4pDZ2DuaBftJcH2yq0c9jRYzuMH1yUYdAOtS+TkAkXd"
+      },
+      {
+        "file": "/dist/browser/signalr.js.map",
+        "cdn": "https://unpkg.com/@aspnet/signalr@1.0.0-preview1-update1/dist/browser/signalr.js.map",
+        "local": "wwwroot/lib/@aspnet/signalr/browser/signalr.js.map",
+        "integrity": "sha384-htFKsb7Vt51abAM1z8aiaStwwfPXIxnXakunu0zrmlVL3s+2ZPtgqGohGcOZHCiZ"
+      },
+      {
+        "file": "/dist/browser/signalr.min.js",
+        "cdn": "https://unpkg.com/@aspnet/signalr@1.0.0-preview1-update1/dist/browser/signalr.min.js",
+        "local": "wwwroot/lib/@aspnet/signalr/browser/signalr.min.js",
+        "integrity": "sha384-LrEuypoLc1WBL+V7yuVC7LJMzzIvmPum7HvK2c0Gk1Q/R7kFETq5sPaM5YZkvzq0"
+      },
+      {
+        "file": "/dist/browser/signalr.min.js.map",
+        "cdn": "https://unpkg.com/@aspnet/signalr@1.0.0-preview1-update1/dist/browser/signalr.min.js.map",
+        "local": "wwwroot/lib/@aspnet/signalr/browser/signalr.min.js.map",
+        "integrity": "sha384-RbB7VQaX9dIf00YNr18P0NVrqlBIgHBcrDaESUVw+p3q7ZAp1+i9N2/8ArEcwymS"
+      }
+    ]
+  },
+  "@reactivex/rxjs/global": {
+    "version": "@reactivex",
+    "files": [
+      {
+        "file": "/dist/global/Rx.js",
+        "cdn": "https://unpkg.com/@reactivex/rxjs@5.5.8/dist/global/Rx.js",
+        "local": "wwwroot/lib/@reactivex/rxjs/global/Rx.js",
+        "integrity": "sha384-BhllVCH+Ahf1IWmm8jUZz6K6zAvlaFQlRPxtNXhxBY9C4gklKom3A5Mdu1IvCtY9"
+      },
+      {
+        "file": "/dist/global/Rx.js.map",
+        "cdn": "https://unpkg.com/@reactivex/rxjs@5.5.8/dist/global/Rx.js.map",
+        "local": "wwwroot/lib/@reactivex/rxjs/global/Rx.js.map",
+        "integrity": "sha384-K2uXMjzQn+tbM52O9f4csn4Npo3sdYqEZTE9fjxVBxtvk4LXfA/afKj8WtZ9fKCZ"
+      },
+      {
+        "file": "/dist/global/Rx.min.js",
+        "cdn": "https://unpkg.com/@reactivex/rxjs@5.5.8/dist/global/Rx.min.js",
+        "local": "wwwroot/lib/@reactivex/rxjs/global/Rx.min.js",
+        "integrity": "sha384-LYPfyX2q+SNly4K2wqjt+demgf0pBMCCd0C14kY9SIoEERaTRdmoknW+yZYZ5WPV"
+      },
+      {
+        "file": "/dist/global/Rx.min.js.map",
+        "cdn": "https://unpkg.com/@reactivex/rxjs@5.5.8/dist/global/Rx.min.js.map",
+        "local": "wwwroot/lib/@reactivex/rxjs/global/Rx.min.js.map",
+        "integrity": "sha384-5jDFAUIxZt3ThbUhpI+q9VnWFcyFtnl6CaPeHxx7p9B5SxBWdPewMKUqhxpQrEFF"
+      }
+    ]
+  }
+}

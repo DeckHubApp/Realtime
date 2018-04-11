@@ -2,48 +2,50 @@ var Slidable;
 (function (Slidable) {
     var Hub;
     (function (Hub) {
-        var groupName = window.location.pathname.replace("/live/", "").replace(/\/[0-9]+$/, "");
-        var transport = signalR.TransportType.WebSockets;
-        var logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
-        var onConnectedCallbacks = [];
-        var onDisconnectedCallbacks = [];
-        function connected() {
-            for (var _i = 0, onConnectedCallbacks_1 = onConnectedCallbacks; _i < onConnectedCallbacks_1.length; _i++) {
-                var callback = onConnectedCallbacks_1[_i];
-                try {
-                    callback();
+        const subjects = new Map();
+        function getGroupName() {
+            const parts = window.location.pathname.split('/').filter(s => !!s);
+            if (parts.length < 4)
+                return null;
+            parts.pop(); // Should be the slide number, we don't care
+            const slug = parts.pop();
+            const presenter = parts.pop();
+            const place = parts.pop();
+            return `${place}/${presenter}/${slug}`;
+        }
+        const transport = signalR.TransportType.WebSockets;
+        const logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
+        const onConnectedCallbacks = [];
+        const onDisconnectedCallbacks = [];
+        let _connected = false;
+        function subject(name) {
+            if (!subjects.has(name)) {
+                const subject = new Rx.Subject();
+                subjects.set(name, new Rx.Subject());
+                if (_connected) {
+                    Hub.hubConnection.on(name, subject.next);
                 }
-                catch (e) {
-                    console.error(e);
-                }
+                return subject;
             }
+            return subjects.get(name);
+        }
+        Hub.subject = subject;
+        function connected() {
+            _connected = true;
+            subjects.forEach((subject, key) => {
+                Hub.hubConnection.on(key, subject.next);
+            });
         }
         function disconnected() {
-            for (var _i = 0, onDisconnectedCallbacks_1 = onDisconnectedCallbacks; _i < onDisconnectedCallbacks_1.length; _i++) {
-                var callback = onDisconnectedCallbacks_1[_i];
-                try {
-                    callback();
-                }
-                catch (e) {
-                    console.error(e);
-                }
-            }
+            _connected = false;
         }
         Hub.hubConnection = null;
-        function onConnected(callback) {
-            onConnectedCallbacks.push(callback);
-            if (Hub.hubConnection !== null) {
-                callback();
-            }
-        }
-        Hub.onConnected = onConnected;
-        function onDisconnected(callback) {
-            onDisconnectedCallbacks.push(callback);
-        }
-        Hub.onDisconnected = onDisconnected;
         function connect() {
-            Hub.hubConnection = new signalR.HubConnection("/hub/live", { transport: transport, logger: logger });
-            Hub.hubConnection.onclose(function (e) {
+            var groupName = getGroupName();
+            if (!!groupName)
+                return;
+            Hub.hubConnection = new signalR.HubConnection('/hub/live', { transport, logger });
+            Hub.hubConnection.onclose(e => {
                 if (e) {
                     console.error(e.message);
                     Hub.hubConnection = null;
@@ -56,11 +58,13 @@ var Slidable;
                 }
             });
             Hub.hubConnection.start()
-                .then(function () {
-                Hub.hubConnection.invoke("Join", groupName);
+                .then(() => {
+                Hub.hubConnection.invoke('Join', groupName);
                 connected();
-            })["catch"](console.error);
+            })
+                .catch(console.error);
         }
-        Hub.connect = connect;
+        document.addEventListener('DOMContentLoaded', connect);
     })(Hub = Slidable.Hub || (Slidable.Hub = {}));
 })(Slidable || (Slidable = {}));
+//# sourceMappingURL=hub.js.map
