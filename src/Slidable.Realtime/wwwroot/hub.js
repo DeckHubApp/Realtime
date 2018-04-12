@@ -21,9 +21,12 @@ var Slidable;
         function subject(name) {
             if (!subjects.has(name)) {
                 const subject = new Rx.Subject();
-                subjects.set(name, new Rx.Subject());
+                subjects.set(name, subject);
                 if (_connected) {
-                    Hub.hubConnection.on(name, subject.next);
+                    Hub.hubConnection.on(name, (data) => {
+                        console.log(data);
+                        subject.next(data);
+                    });
                 }
                 return subject;
             }
@@ -33,7 +36,10 @@ var Slidable;
         function connected() {
             _connected = true;
             subjects.forEach((subject, key) => {
-                Hub.hubConnection.on(key, subject.next);
+                Hub.hubConnection.on(key, (data) => {
+                    console.log(data);
+                    subject.next(data);
+                });
             });
         }
         function disconnected() {
@@ -41,8 +47,8 @@ var Slidable;
         }
         Hub.hubConnection = null;
         function connect() {
-            var groupName = getGroupName();
-            if (!!groupName)
+            var groupName = Slidable.show || getGroupName();
+            if (!groupName)
                 return;
             Hub.hubConnection = new signalR.HubConnection('/hub/live', { transport, logger });
             Hub.hubConnection.onclose(e => {

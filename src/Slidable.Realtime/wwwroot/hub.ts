@@ -1,4 +1,8 @@
-﻿namespace Slidable.Hub {
+﻿declare namespace Slidable {
+    const show: string | null;
+}
+
+namespace Slidable.Hub {
 
     const subjects = new Map();
 
@@ -23,9 +27,12 @@
     export function subject<T>(name: string) {
         if (!subjects.has(name)) {
             const subject = new Rx.Subject<T>();
-            subjects.set(name, new Rx.Subject<T>());
+            subjects.set(name, subject);
             if (_connected) {
-                hubConnection.on(name, subject.next);
+                hubConnection.on(name, (data) => {
+                    console.log(data);
+                    subject.next(data as T);
+                });
             }
             return subject;
         }
@@ -35,7 +42,10 @@
     function connected() {
         _connected = true;
         subjects.forEach((subject, key) => {
-            hubConnection.on(key, subject.next);
+            hubConnection.on(key, (data) => {
+                console.log(data);
+                subject.next(data);
+            });
         });
     }
 
@@ -46,8 +56,8 @@
     export var hubConnection: signalR.HubConnection | null = null;
 
     function connect() {
-        var groupName = getGroupName();
-        if (!!groupName) return;
+        var groupName = Slidable.show || getGroupName();
+        if (!groupName) return;
         hubConnection = new signalR.HubConnection('/hub/live', { transport, logger });
         hubConnection.onclose(e => {
             if (e) {
