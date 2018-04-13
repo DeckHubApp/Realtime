@@ -1,0 +1,54 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hub
+  namespace: slidable
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hub
+    spec:
+      containers:
+      - image: slidable/hub:1.0.0-alpha1
+        imagePullPolicy: Always
+        name: hub
+        env:
+          - name: Runtime__PathBase
+            value: '/hub'
+          - name: Redis__Host
+            value: 'redis'
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hub
+  namespace: slidable
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: hub
+  sessionAffinity: ClientIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hub
+  namespace: slidable
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: slidable.io
+    http:
+      paths:
+      - path: /hub
+        backend:
+          serviceName: hub
+          servicePort: 80
