@@ -13,6 +13,7 @@ nice feature in .NET Core 2.0 and up, which lets you create a managed background
 full dependency-injection support, just by registering your implementation(s) as a Singleton
 during application startup.
 
-As well as the SignalR hub, this site serves the SignalR client library, and Rx.js, which is
-used as an abstraction in the various consumer parts to make isolated development and
-testing easier.
+As well as the SignalR hub, this site serves its own 
+[hub.js](https://github.com/slidable/Realtime/blob/master/src/Slidable.Realtime/wwwroot/hub.js) 
+file, the SignalR client library, and Rx.js, which is used as an abstraction in the various 
+consumer parts to make isolated development and testing easier.
