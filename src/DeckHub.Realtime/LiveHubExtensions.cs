@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Slidable.Realtime.Models;
+using DeckHub.Realtime.Models;
 
-namespace Slidable.Realtime
+namespace DeckHub.Realtime
 {
     public static class LiveHubExtensions
     {

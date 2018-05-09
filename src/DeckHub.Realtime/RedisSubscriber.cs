@@ -5,10 +5,10 @@ using MessagePack;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Slidable.Realtime.Models;
+using DeckHub.Realtime.Models;
 using StackExchange.Redis;
 
-namespace Slidable.Realtime
+namespace DeckHub.Realtime
 {
     [UsedImplicitly]
     public class RedisSubscriber : IHostedService
@@ -29,8 +29,8 @@ namespace Slidable.Realtime
         public Task StopAsync(CancellationToken cancellationToken) => _redis.GetSubscriber().UnsubscribeAllAsync();
 
         private Task SubscribeAsync(ISubscriber subscriber) => Task.WhenAll(
-            subscriber.SubscribeAsync("slidable:slide-available", HandleSlideMessage),
-            subscriber.SubscribeAsync("slidable:question", HandleQuestionMessage)
+            subscriber.SubscribeAsync("deckhub:slide-available", HandleSlideMessage),
+            subscriber.SubscribeAsync("deckhub:question", HandleQuestionMessage)
         );
 
         private async void HandleQuestionMessage(RedisChannel channel, RedisValue value)

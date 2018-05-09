@@ -1,0 +1,60 @@
+{
+  "@aspnet/signalr/browser": {
+    "version": "1.0.0-rc1-update1",
+    "files": [
+      {
+        "file": "/dist/browser/signalr.js",
+        "cdn": "https://unpkg.com/@aspnet/signalr@1.0.0-rc1-update1/dist/browser/signalr.js",
+        "local": "wwwroot/lib/@aspnet/signalr/browser/signalr.js",
+        "integrity": "sha384-vvxwxIsc0u36fcJvMehYNtYF05a+Vt5gPAfJER/gVCPNsCj0xCXr9WS+bIZoi7xZ"
+      },
+      {
+        "file": "/dist/browser/signalr.js.map",
+        "cdn": "https://unpkg.com/@aspnet/signalr@1.0.0-rc1-update1/dist/browser/signalr.js.map",
+        "local": "wwwroot/lib/@aspnet/signalr/browser/signalr.js.map",
+        "integrity": "sha384-lqNPIiWE17eFHROP1HaRLPNty5wP95T9nTvL/Qk7y9ECVanbeVyad7KyJppoJbSd"
+      },
+      {
+        "file": "/dist/browser/signalr.min.js",
+        "cdn": "https://unpkg.com/@aspnet/signalr@1.0.0-rc1-update1/dist/browser/signalr.min.js",
+        "local": "wwwroot/lib/@aspnet/signalr/browser/signalr.min.js",
+        "integrity": "sha384-AwmpA5VV/+hRfLYvLbL95sXfajv7ny+Uz3TiOlHVsQ/F9qMRaTM60T0joCnBbMp3"
+      },
+      {
+        "file": "/dist/browser/signalr.min.js.map",
+        "cdn": "https://unpkg.com/@aspnet/signalr@1.0.0-rc1-update1/dist/browser/signalr.min.js.map",
+        "local": "wwwroot/lib/@aspnet/signalr/browser/signalr.min.js.map",
+        "integrity": "sha384-NhsC5uK6TTiwS85pjLl+iQ5z6FguDK3nxZw5DszH1yRBYaTbfAkUhP30YodfW+lZ"
+      }
+    ]
+  },
+  "@reactivex/rxjs/global": {
+    "version": "6.1.0",
+    "files": [
+      {
+        "file": "/dist/global/rxjs.umd.js",
+        "cdn": "https://unpkg.com/@reactivex/rxjs@6.1.0/dist/global/rxjs.umd.js",
+        "local": "wwwroot/lib/@reactivex/rxjs/global/rxjs.umd.js",
+        "integrity": "sha384-zFBqFvw7E+nNbN2C1iM60Z7IsDUnYQfuyKjt0lhjy8M66eOMZFKPKnbBLen6ON5e"
+      },
+      {
+        "file": "/dist/global/rxjs.umd.js.map",
+        "cdn": "https://unpkg.com/@reactivex/rxjs@6.1.0/dist/global/rxjs.umd.js.map",
+        "local": "wwwroot/lib/@reactivex/rxjs/global/rxjs.umd.js.map",
+        "integrity": "sha384-4/hgRN5FOr4tDVJa1WxI3zzp0SMiqpPsdNLzgbxh0AqKiECY4Q/rZx7bXoNxdHyN"
+      },
+      {
+        "file": "/dist/global/rxjs.umd.min.js",
+        "cdn": "https://unpkg.com/@reactivex/rxjs@6.1.0/dist/global/rxjs.umd.min.js",
+        "local": "wwwroot/lib/@reactivex/rxjs/global/rxjs.umd.min.js",
+        "integrity": "sha384-3mTCb4tOUiB0QBR1yqRmwG25KQ5/U1jp8mqxZ8TH6QlAwPA49U9ZhbfCVAp2E70s"
+      },
+      {
+        "file": "/dist/global/rxjs.umd.min.js.map",
+        "cdn": "https://unpkg.com/@reactivex/rxjs@6.1.0/dist/global/rxjs.umd.min.js.map",
+        "local": "wwwroot/lib/@reactivex/rxjs/global/rxjs.umd.min.js.map",
+        "integrity": "sha384-3spPCD2LwIl1bzByZu25CdmbkQyEtm0FDdVOH7pvIaBcyjUNJe6TsDegIxA4u4o9"
+      }
+    ]
+  }
+}

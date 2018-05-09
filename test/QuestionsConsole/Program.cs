@@ -54,7 +54,7 @@ namespace QuestionsConsole
                 Text = question
             };
 
-            _redis.GetSubscriber().Publish("slidable:question", MessagePackSerializer.Serialize(q));
+            _redis.GetSubscriber().Publish("deckhub:question", MessagePackSerializer.Serialize(q));
         }
     }
 }

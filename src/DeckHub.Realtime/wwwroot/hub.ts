@@ -1,8 +1,8 @@
-﻿declare namespace Slidable {
+﻿declare namespace DeckHub {
     const show: string | null;
 }
 
-namespace Slidable.Hub {
+namespace DeckHub.Hub {
 
     const subjects = new Map();
 
@@ -18,10 +18,6 @@ namespace Slidable.Hub {
 
     const transport = signalR.TransportType.WebSockets;
     const logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
-
-    const onConnectedCallbacks: Function[] = [];
-    const onDisconnectedCallbacks: Function[] = [];
-
     let _connected = false;
 
     export function subject<T>(name: string) {
@@ -39,7 +35,7 @@ namespace Slidable.Hub {
         return subjects.get(name) as Rx.Subject<T>;
     }
 
-    function connected() {
+    function attachCallbacks() {
         _connected = true;
         subjects.forEach((subject, key) => {
             hubConnection.on(key, (data) => {
@@ -56,9 +52,12 @@ namespace Slidable.Hub {
     export var hubConnection: signalR.HubConnection | null = null;
 
     function connect() {
-        var groupName = Slidable.show || getGroupName();
+        var groupName = DeckHub.show || getGroupName();
         if (!groupName) return;
-        hubConnection = new signalR.HubConnection('/hub/live', { transport, logger });
+        hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl('/hub/live')
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
         hubConnection.onclose(e => {
             if (e) {
                 console.error(e.message);
@@ -70,10 +69,10 @@ namespace Slidable.Hub {
                 disconnected();
             }
         });
+        attachCallbacks();
         hubConnection.start()
             .then(() => {
                 hubConnection.invoke('Join', groupName);
-                connected();
             })
             .catch(console.error);
     }
@@ -83,15 +82,23 @@ namespace Slidable.Hub {
 
 declare namespace signalR {
 
-    export class HubConnection {
-        constructor(path: string, options: any);
+    export class HubConnectionBuilder {
+        constructor();
+        
+        withUrl(url: string): HubConnectionBuilder;
+        
+        configureLogging(level: LogLevel): HubConnectionBuilder;
 
+        build(): HubConnection;
+    }
+    
+    export class HubConnection {
         on<T>(method: string, action: (data: T) => void): void;
 
         onclose(callback: ConnectionClosed): void;
 
         invoke(method: string, data: any);
-
+        
         start(): Promise<any>;
     }
 

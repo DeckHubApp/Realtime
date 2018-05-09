@@ -8,13 +8,16 @@
     <div id="log">
         <ul id="messages"></ul>
     </div>
-    <script src="signalr.js">
+    <script src="lib/@aspnet/signalr/browser/signalr.js">
         
     </script>
     <script>
         let transportType = signalR.TransportType.WebSockets;
         let logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
-        let connection = new signalR.HubConnection('/hub/live', { transport: transportType, logger: logger });
+        let connection = new signalR.HubConnectionBuilder()
+            .withUrl('/hub/live')
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
         
         connection.onclose(e => {
             if (e) {

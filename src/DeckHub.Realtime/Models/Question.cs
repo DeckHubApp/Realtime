@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using MessagePack;
 
-namespace Slidable.Realtime.Models
+namespace DeckHub.Realtime.Models
 {
     [MessagePackObject]
     [PublicAPI]

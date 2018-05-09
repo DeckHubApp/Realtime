@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.SignalR;
-using Slidable.Realtime.Models;
+using DeckHub.Realtime.Models;
 
-namespace Slidable.Realtime
+namespace DeckHub.Realtime
 {
     [UsedImplicitly]
     public class LiveHub : Hub
@@ -11,13 +11,13 @@ namespace Slidable.Realtime
         [PublicAPI]
         public async Task Join(string groupName)
         {
-            await Groups.AddAsync(Context.ConnectionId, groupName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
         }
 
         [PublicAPI]
         public async Task Leave(string groupName)
         {
-            await Groups.RemoveAsync(Context.ConnectionId, groupName);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
         }
     }
 }

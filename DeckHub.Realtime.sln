@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{562CC66A-66E3-4840-80AA-1126ADE898F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slidable.Realtime", "src\Slidable.Realtime\Slidable.Realtime.csproj", "{EB5C034A-E34F-4ADD-BE62-7BC587466F04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeckHub.Realtime", "src\DeckHub.Realtime\DeckHub.Realtime.csproj", "{EB5C034A-E34F-4ADD-BE62-7BC587466F04}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7084D05F-AED3-4AE4-9F7A-5242E5632B81}"
 EndProject

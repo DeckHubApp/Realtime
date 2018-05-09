@@ -1,5 +1,5 @@
-var Slidable;
-(function (Slidable) {
+var DeckHub;
+(function (DeckHub) {
     var Hub;
     (function (Hub) {
         const subjects = new Map();
@@ -15,8 +15,6 @@ var Slidable;
         }
         const transport = signalR.TransportType.WebSockets;
         const logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
-        const onConnectedCallbacks = [];
-        const onDisconnectedCallbacks = [];
         let _connected = false;
         function subject(name) {
             if (!subjects.has(name)) {
@@ -33,7 +31,7 @@ var Slidable;
             return subjects.get(name);
         }
         Hub.subject = subject;
-        function connected() {
+        function attachCallbacks() {
             _connected = true;
             subjects.forEach((subject, key) => {
                 Hub.hubConnection.on(key, (data) => {
@@ -47,10 +45,13 @@ var Slidable;
         }
         Hub.hubConnection = null;
         function connect() {
-            var groupName = Slidable.show || getGroupName();
+            var groupName = DeckHub.show || getGroupName();
             if (!groupName)
                 return;
-            Hub.hubConnection = new signalR.HubConnection('/hub/live', { transport, logger });
+            Hub.hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl('/hub/live')
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
             Hub.hubConnection.onclose(e => {
                 if (e) {
                     console.error(e.message);
@@ -63,14 +64,14 @@ var Slidable;
                     disconnected();
                 }
             });
+            attachCallbacks();
             Hub.hubConnection.start()
                 .then(() => {
                 Hub.hubConnection.invoke('Join', groupName);
-                connected();
             })
                 .catch(console.error);
         }
         document.addEventListener('DOMContentLoaded', connect);
-    })(Hub = Slidable.Hub || (Slidable.Hub = {}));
-})(Slidable || (Slidable = {}));
+    })(Hub = DeckHub.Hub || (DeckHub.Hub = {}));
+})(DeckHub || (DeckHub = {}));
 //# sourceMappingURL=hub.js.map

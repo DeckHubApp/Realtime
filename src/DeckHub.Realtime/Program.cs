@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Slidable.Realtime
+namespace DeckHub.Realtime
 {
     [UsedImplicitly]
     public class Program

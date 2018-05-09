@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
-namespace Slidable.Realtime
+namespace DeckHub.Realtime
 {
     [PublicAPI]
     public class Startup
