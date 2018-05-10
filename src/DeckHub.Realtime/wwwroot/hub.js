@@ -13,12 +13,10 @@ var DeckHub;
             const place = parts.pop();
             return `${place}/${presenter}/${slug}`;
         }
-        const transport = signalR.TransportType.WebSockets;
-        const logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
         let _connected = false;
         function subject(name) {
             if (!subjects.has(name)) {
-                const subject = new Rx.Subject();
+                const subject = new rxjs.Subject();
                 subjects.set(name, subject);
                 if (_connected) {
                     Hub.hubConnection.on(name, (data) => {

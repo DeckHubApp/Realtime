@@ -16,13 +16,11 @@ namespace DeckHub.Hub {
         return `${place}/${presenter}/${slug}`;
     }
 
-    const transport = signalR.TransportType.WebSockets;
-    const logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
     let _connected = false;
 
     export function subject<T>(name: string) {
         if (!subjects.has(name)) {
-            const subject = new Rx.Subject<T>();
+            const subject = new rxjs.Subject<T>();
             subjects.set(name, subject);
             if (_connected) {
                 hubConnection.on(name, (data) => {
@@ -32,7 +30,7 @@ namespace DeckHub.Hub {
             }
             return subject;
         }
-        return subjects.get(name) as Rx.Subject<T>;
+        return subjects.get(name) as rxjs.Subject<T>;
     }
 
     function attachCallbacks() {
@@ -118,7 +116,7 @@ declare namespace signalR {
     }
 }
 
-declare namespace Rx {
+declare namespace rxjs {
 
     export class Observable<T> {
         
